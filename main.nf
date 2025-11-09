@@ -16,6 +16,7 @@
 include { FC  } from './workflows/fc'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_fc_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_fc_pipeline'
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     NAMED WORKFLOWS FOR PIPELINE
@@ -28,7 +29,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_fc_p
 workflow NFCORE_FC {
 
     take:
-    samplesheet // channel: samplesheet read in from --input
+    samplesheet // channel: path to samplesheet file
 
     main:
 
@@ -39,6 +40,7 @@ workflow NFCORE_FC {
         samplesheet
     )
 }
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -61,11 +63,17 @@ workflow {
     )
 
     //
+    // Create channel directly from params.input
+    //
+    ch_samplesheet = channel.fromPath(params.input, checkIfExists: true)
+
+    //
     // WORKFLOW: Run main workflow
     //
     NFCORE_FC (
-        PIPELINE_INITIALISATION.out.samplesheet
+        ch_samplesheet
     )
+    
     //
     // SUBWORKFLOW: Run completion tasks
     //
