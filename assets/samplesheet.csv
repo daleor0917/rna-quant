@@ -1,3 +1,3 @@
 sample,bam,gtf
-S1,data/test3.single_end.markduplicates.sorted.bam,data/genome_test_human.gtf
+S1,data/test3.single_end.markduplicates.sorted.bam,data/Homo_sapiens.GRCh38.115.gtf
 
