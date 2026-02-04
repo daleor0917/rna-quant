@@ -1,2 +1,2 @@
-FROM community.wave.seqera.io/library/multiqc:1.32--d58f60e4deb769bf
+FROM quay.io/biocontainers/multiqc:1.21--pyhdfd78af_0
 LABEL maintainer="daleor0917@gmail.com"
